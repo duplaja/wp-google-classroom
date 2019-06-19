@@ -12,3 +12,5 @@
 [JQuery Validation](https://github.com/jquery-validation/jquery-validWation/), by Jörn Zaefferer
 
 [WinWheel.js](https://github.com/zarocknz/javascript-winwheel), by Doug
+
+[animatedModal.js](https://github.com/joaopereirawd/animatedModal.js/) by João Pereira
