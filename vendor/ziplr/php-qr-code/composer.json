@@ -1,0 +1,25 @@
+{
+    "name": "ziplr/php-qr-code",
+    "description": "PHP Qr Code Generator compatible with php 7.0",
+    "autoload": {
+        "psr-0": {
+            
+        },
+        "files": [
+            "src/qrconst.php",
+            "src/qrconfig.php",
+            "src/qrtools.php",
+            "src/qrspec.php",
+            "src/qrimage.php",
+            "src/qrinput.php",
+            "src/qrbitstream.php",
+            "src/qrsplit.php",
+            "src/qrrscode.php",
+            "src/qrmask.php",
+            "src/qrencode.php",
+            "src/qrarea.php",
+            "src/qrcanvas.php",
+            "src/qrsvg.php"
+            ]
+    }
+}

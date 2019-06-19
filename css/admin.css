@@ -1,0 +1,61 @@
+/************************************
+* Admin side CSS styles for Google Classroom Plugin
+*************************************/
+
+label.error {
+    color:red;
+}
+
+#assignmentform, #bulkaddform {
+    width:90%;
+}
+#assignmentform input, #assignmentform label, #bulkaddform label, #spinnerform label, #spinnerform input {
+    display:block;
+}
+#assignmentform label, #assignmentform legend, #bulkaddform label, #spinnerform label, #spinnerform legend {
+    font-weight:700;
+    margin-bottom:5px;
+}
+#assignmentform textarea {
+    height:100px;
+}
+#assignmentform label.checkbox_label, #assignmentform input[type='checkbox'], 
+#spinnerform label.checkbox_label, #spinnerform input[type='checkbox'] {
+    display:inline-block;
+    font-weight:500
+}
+#assignmentform div, #bulkaddform div, #spinnerform div {
+    margin-bottom:20px;
+}
+#assignmentform select, #assignmentform textarea, #assignmentform input[type='text'], #assignmentform input[type='number'] {
+    width:100%;
+}
+@media screen and (min-width: 1024px) {
+    #assignmentform div {
+        width:30%;
+    }
+    #assignmentform div.one_half {
+        width:48%;
+    }
+}
+
+a.button-link-special, div.button-link-special {
+    margin-top:15px;
+    background-color: black;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius:10px;
+    font-size:20px;
+    width: 200px;
+    cursor: pointer!important;
+  }
+  
+  a.button-link-special:hover, a.button-link-special:active,
+  div.button-link:hover, div.button-link:active {
+    background-color: navy;
+    color:white!important;
+    cursor: pointer!important;
+  }

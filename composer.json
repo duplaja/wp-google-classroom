@@ -1,0 +1,8 @@
+{
+    "require": {
+        "google/apiclient": "^2.0",
+        "ziplr/php-qr-code": "^1.0",
+        "setasign/fpdi": "^2.2",
+        "setasign/fpdi-fpdf": "^2.2"
+    }
+}
