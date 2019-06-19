@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 if (!function_exists('google_classroom_show_bulk_add_form')) {
 
