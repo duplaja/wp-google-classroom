@@ -252,3 +252,107 @@ if(!function_exists('google_classroom_show_spinner')) {
     }
 
 }
+
+
+if(!function_exists('google_classroom_card_flip')) {
+
+    function google_classroom_show_card_flip() {
+
+
+        if(isset($_POST['flipclassid'])) {
+
+            $class_id =  $_POST['flipclassid'];
+
+            $temp_students = google_classroom_get_members($class_id);
+
+            $students = array();
+
+            foreach($temp_students as $student) {
+
+                $name_array = explode(' ',$student);
+                
+                $students[] = $name_array[0].' '.$name_array[1][0];
+            }
+
+            if(isset($_POST['teachers_choice'])) {
+
+                $students[] = 'Teacher Picks';
+            }
+
+            if(isset($_POST['last_picks'])) {
+                $students[] = 'Last Picks';
+            }
+
+            shuffle($students);
+
+            //Modal Stuff
+            $output = '
+            <!--Call your modal-->
+            <h2>Your Cards are Ready! Click Below to Open Them</h2>
+            <a id="animatedCards" href="#animatedCardsModal" class="button-link-special">Launch Cards</a>';
+            
+            
+            $output .= '
+            <div id="animatedCardsModal" style="margin-top:10px">
+            <div class="modal-content" style="padding-top:25px;padding-left:15px">';
+            $i=1;
+            
+            foreach($students as $student) {
+
+                $student = str_replace(' ','<br><br>',$student);
+
+                $output .= "<div id='card-{$i}' class='playing-card'>
+                        <div class='card-front'>
+                            <img src='".plugins_url( 'card-back.png', __FILE__ )."' class='playing-card-back'>
+                        </div>
+                        <div class='card-back'>
+                            <br><br>$student
+                        </div>
+                       </div>";
+                       $i++;
+            }
+
+            
+            $output.= "<a href='{$_SERVER['REQUEST_URI']}' class='button-link-special' style='position: absolute;bottom:20px;right:10px;'>Close or Change Settings</a>";
+
+            if(isset($_POST["flip_sound"])) {
+                $output .="<audio id='flip-audio' src='".plugins_url( 'card-flip.wav', __FILE__ )."' style='display:none'></audio>";
+            }
+
+            $output .= '</div></div>'; //close modal  
+
+        
+        } else {
+            $classes = google_classroom_get_classes('select','flipclassid');
+
+            $output = '<form id="cardform" method="POST" action="'.$_SERVER['REQUEST_URI'].'">
+            <section>
+                <div>'.
+                "<label for='flipclassid'>Choose Your Class</label>".
+                $classes.'
+                </div>
+            </section>
+            <section>
+                <div>
+                <fieldset>
+                    <legend> Extra Options</legend>
+                    <input type="checkbox" name="flip_sound" id="flip_sound" checked><label for="flip_sound" class="checkbox_label">Include Card Flipping Sound</label><br>
+                        <input type="checkbox" name="teachers_choice" id="teachers_choice"><label for="teachers_choice" class="checkbox_label">Include "Teacher\'s Choice" Option</label><br>
+                        <input type="checkbox" name="last_picks" id="last_picks"><label for="last_picks" class="checkbox_label">Include "Last Person Picks" Option</label>
+                </fieldset>
+                </div>
+            </section>
+            <section>
+                <input type="submit" value="Prepare Your Cards">
+            </section>
+            </form>
+            <h4>Some Quick Notes:</h4>
+            <ul>
+                <li><p>I usually treat an absent student as a "Teacher Picks" space</p></li>
+            </ul>';
+        }   
+  
+        return $output;
+    }
+
+}

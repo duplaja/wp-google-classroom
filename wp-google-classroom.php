@@ -3,7 +3,7 @@
 Plugin Name: WP Google Classroom
 Plugin URI: https://mathwithmrdulaney.com/google-classroom-plugin
 Description: WP Integration with Google Classroom
-Version: 1.1
+Version: 1.2
 Author: Dan Dulaney
 Author URI: https://dandulaney.com
 GitHub Plugin URI: https://github.com/duplaja/wp-google-classroom
@@ -65,14 +65,24 @@ function google_classroom_enqueue_scripts($hook) {
     } elseif ('google-classroom_page_google-classroom-class-spinner'==$hook) {
      
         wp_enqueue_style( 'admin-css', plugins_url( 'css/admin.css', __FILE__ ),array(), '1.2');
-        wp_enqueue_style( 'admin-css', plugins_url( 'css/animate.min.css', __FILE__ ),array(), '1.0');
+        wp_enqueue_style( 'animate-css', plugins_url( 'css/animate.min.css', __FILE__ ),array(), '1.0');
 
         wp_enqueue_script('winwheel',plugins_url('js/winwheel.min.js', __FILE__),array('tweenmax','jquery'),'1.0');
         wp_enqueue_script('tweenmax',plugins_url('js/TweenMax.min.js', __FILE__),array('jquery'),'1.0');
         wp_enqueue_script( 'animated-modal', plugins_url( 'js/animatedModal.min.js', __FILE__ ),array('jquery'), '1.0');
         wp_enqueue_script( 'create-spinner', plugins_url( 'js/create-spinner.js', __FILE__ ),array('jquery','winwheel','tweenmax','animated-modal'), '1.0');
     
-    } elseif ('google-classroom_page_google-classroom-sorting-sticks-calc'==$hook) { 
+    } elseif ('google-classroom_page_google-classroom-class-card'==$hook) {
+        
+        wp_enqueue_style( 'admin-css', plugins_url( 'css/admin.css', __FILE__ ),array(), '1.2');
+        wp_enqueue_style( 'animate-css', plugins_url( 'css/animate.min.css', __FILE__ ),array(), '1.0');
+
+        wp_enqueue_script( 'animated-modal', plugins_url( 'js/animatedModal.min.js', __FILE__ ),array('jquery'), '1.0');
+        wp_enqueue_script( 'jquery-flip', plugins_url( 'js/flip.js', __FILE__ ),array('jquery'), '1.0');
+        wp_enqueue_script( 'create-cards', plugins_url( 'js/create-cards.js', __FILE__ ),array('jquery','jquery-flip','animated-modal'), '1.0');
+        
+    }
+    elseif ('google-classroom_page_google-classroom-sorting-sticks-calc'==$hook) { 
 
         wp_enqueue_style( 'admin-css', plugins_url( 'css/admin.css', __FILE__ ),array(), '1.2');
         wp_enqueue_script('sorting-sticks',plugins_url('js/sorting-sticks.js', __FILE__),array('jquery'),'1.0');

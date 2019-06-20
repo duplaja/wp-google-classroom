@@ -90,15 +90,17 @@ if ( ! function_exists( 'gclassroom_wp_integration_menu' ) ) {
         add_menu_page( 'Google Classroom', 'Google Classroom', 'manage_options', 'google-classroom', 'gclassroom_wp_integration_display_settings', $icon_url);
 	    
 
-
+        //All these require the Google API to be set up
         if(!empty(get_option( 'classroom_auth_token'))) {
             add_submenu_page('google-classroom', 'Create Assignement', 'Create Assignment', 'manage_options', 'google-classroom-assignment', 'gclassroom_wp_integration_display_assignment');
             add_submenu_page('google-classroom', 'Bulk Add Students', 'Bulk Add Students', 'manage_options', 'google-classroom-bulk-add', 'gclassroom_wp_integration_display_bulk_add');
             add_submenu_page('google-classroom', 'Spinner', 'Class Spinner', 'manage_options', 'google-classroom-class-spinner', 'gclassroom_wp_integration_display_class_spinner');       
-            add_submenu_page('google-classroom', 'Sorting Sticks', 'Sorting Sticks Calc', 'manage_options', 'google-classroom-sorting-sticks-calc', 'gclassroom_wp_integration_display_sorting_sticks_calc');       
-
+            add_submenu_page('google-classroom', 'Card Flip', 'Card Flip', 'manage_options', 'google-classroom-class-card', 'gclassroom_wp_integration_display_class_card');       
         }
-        
+
+        //Doesn't actually require Google Auth for this one
+        add_submenu_page('google-classroom', 'Sorting Sticks', 'Sorting Sticks Calc', 'manage_options', 'google-classroom-sorting-sticks-calc', 'gclassroom_wp_integration_display_sorting_sticks_calc');       
+
     }
     
 }
@@ -460,6 +462,19 @@ if (!function_exists('gclassroom_wp_integration_display_class_spinner')) {
         <div style='float:left;margin-right:20px;margin-left:20px;margin-top:10px'>";
         
         echo google_classroom_show_spinner();
+        
+        echo "</div>";
+
+    }
+}
+
+if(!function_exists('gclassroom_wp_integration_display_class_card')) {
+    function gclassroom_wp_integration_display_class_card() {
+
+        echo "<h1>Student Card Flip</h1>
+        <div>";
+        
+        echo google_classroom_show_card_flip();
         
         echo "</div>";
 

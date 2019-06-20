@@ -9,10 +9,11 @@ label.error {
 #assignmentform, #bulkaddform {
     width:90%;
 }
-#assignmentform input, #assignmentform label, #bulkaddform label, #spinnerform label, #spinnerform input {
+#assignmentform input, #assignmentform label, #bulkaddform label, #spinnerform label, #spinnerform input, #cardform input, #cardform label {
     display:block;
 }
-#assignmentform label, #assignmentform legend, #bulkaddform label, #spinnerform label, #spinnerform legend {
+#assignmentform label, #assignmentform legend, #bulkaddform label, 
+#spinnerform label, #spinnerform legend, #cardform label, #cardform legend {
     font-weight:700;
     margin-bottom:5px;
 }
@@ -20,11 +21,13 @@ label.error {
     height:100px;
 }
 #assignmentform label.checkbox_label, #assignmentform input[type='checkbox'], 
-#spinnerform label.checkbox_label, #spinnerform input[type='checkbox'] {
+#spinnerform label.checkbox_label, #spinnerform input[type='checkbox'],
+#cardform label.checkbox_label, #cardform input[type='checkbox'] {
+ 
     display:inline-block;
     font-weight:500
 }
-#assignmentform div, #bulkaddform div, #spinnerform div {
+#assignmentform div, #bulkaddform div, #spinnerform div, #cardform div {
     margin-bottom:20px;
 }
 #assignmentform select, #assignmentform textarea, #assignmentform input[type='text'], #assignmentform input[type='number'] {
@@ -71,3 +74,29 @@ div.button-link:hover, div.button-link:active {
     padding: 8px; 
     background-color:none; 
 } 
+
+.playing-card {
+    width: 100px;
+    height: 135px;
+    margin: 10px;
+    display: inline-block;
+  }
+  
+  .card-back {
+    border: 1px white solid;
+    border-radius:5px;
+    background-color: white;
+    text-align:center;
+    vertical-align: center;
+    font-size:18px;
+    overflow-wrap: break-word;
+  }
+  .card-front {
+    background-color: white;
+    border-radius:5px;
+  }
+
+  img.playing-card-back {
+    height:auto;
+    width:100px;
+  }
