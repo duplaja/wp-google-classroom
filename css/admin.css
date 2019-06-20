@@ -51,11 +51,23 @@ a.button-link-special, div.button-link-special {
     font-size:20px;
     width: 200px;
     cursor: pointer!important;
-  }
+}
   
-  a.button-link-special:hover, a.button-link-special:active,
-  div.button-link:hover, div.button-link:active {
+a.button-link-special:hover, a.button-link-special:active,
+div.button-link:hover, div.button-link:active {
     background-color: navy;
     color:white!important;
     cursor: pointer!important;
-  }
+}
+
+#sorting-sticks-calc table,
+#sorting-sticks-calc th,
+#sorting-sticks-calc td { 
+    border: 2px solid navy; 
+    text-align:center; 
+} 
+#sorting-sticks-calc th,
+#sorting-sticks-calc td { 
+    padding: 8px; 
+    background-color:none; 
+} 

@@ -95,6 +95,8 @@ if ( ! function_exists( 'gclassroom_wp_integration_menu' ) ) {
             add_submenu_page('google-classroom', 'Create Assignement', 'Create Assignment', 'manage_options', 'google-classroom-assignment', 'gclassroom_wp_integration_display_assignment');
             add_submenu_page('google-classroom', 'Bulk Add Students', 'Bulk Add Students', 'manage_options', 'google-classroom-bulk-add', 'gclassroom_wp_integration_display_bulk_add');
             add_submenu_page('google-classroom', 'Spinner', 'Class Spinner', 'manage_options', 'google-classroom-class-spinner', 'gclassroom_wp_integration_display_class_spinner');       
+            add_submenu_page('google-classroom', 'Sorting Sticks', 'Sorting Sticks Calc', 'manage_options', 'google-classroom-sorting-sticks-calc', 'gclassroom_wp_integration_display_sorting_sticks_calc');       
+
         }
         
     }
@@ -461,5 +463,56 @@ if (!function_exists('gclassroom_wp_integration_display_class_spinner')) {
         
         echo "</div>";
 
+    }
+}
+
+if (!function_exists('gclassroom_wp_integration_display_sorting_sticks_calc')) {
+    function gclassroom_wp_integration_display_sorting_sticks_calc() {
+ 
+        echo "<div id='sorting-sticks-calc'>
+        <h1>Sorting Sticks Calculator</h1>";
+    
+            echo '<label for="number_of_students">Number of Students: </label>
+            <input type="number" name="number_of_students" id="number_of_students" onKeyUp="sorting_sticks(this.value)" onChange="sorting_sticks(this.value)">';
+
+            echo "<br><br><table id='sorting_sticks_table'>
+                <tr><th>Type of Sorting</th><th>Students / Group</th><th># of Groups</th><th>Evenly Divided?</th></tr>
+                <tr>
+                    <td>Numbers</td><td id='numbers_per'></td>
+                    <td id='numbers_groups'>2</td><td id='numbers_extra'></td>
+                </tr>
+                <tr>
+                    <td>Color of Shape</td><td id='color_shape_per'></td>
+                    <td id='color_shape_groups'>3</td><td id='color_shape_extra'></td>
+                </tr>
+                <tr>
+                    <td>Color of Bar (Top)</td><td id='color_bar_per'></td>
+                    <td id='color_bar_groups'>4</td><td id='color_bar_extra'></td>
+                </tr>
+                <tr>
+                    <td>Transportation</td><td id='trans_per'></td>
+                    <td id='trans_groups'>5</td><td id='trans_extra'></td>
+                </tr>
+                <tr>
+                    <td>Shape</td><td id='shape_per'></td>
+                    <td id='shape_groups'>6</td><td id='shape_extra'></td>
+                </tr>
+                <tr>
+                    <td>Sports</td><td id='sport_per'></td>
+                    <td id='sport_groups'>7</td><td id='sport_extra'></td>
+                </tr>
+                <tr>
+                    <td>Alphabet</td><td id='alpha_per'>2</td>
+                    <td id='alpha_groups'></td><td id='alpha_extra'></td>
+                </tr>
+            </table>
+            <h2>About Sorting Sticks</h2>
+            <p>Sorting Sticks are a free tool from <a href='http://www.ilclassroomsinaction.org' target='_blank'>ilclassroomsinaction.org's Collaboration Kit</a>, for promoting collaborative learning. Students are given a stick as they enter the classroom, 
+            and then only once the teacher is ready are they told which symbol to match. This lets teachers group students in a variety of ways, without them knowing in advance.
+            This does require a little prep work on the part of the teacher, since you'll want to pre-select the sticks to pass out. This tool is intended to help with that process.</p>
+            <p>The standard kit includes 40 sticks, and can be downloaded (and printed) for free at <a href='http://www.ilclassroomsinaction.org/uploads/1/2/0/9/120982154/sorting_sticks__1_.pdf' target='_blank'>this link.</a>
+             For instructions on how to use the sticks, check out <a href='http://www.ilclassroomsinaction.org/uploads/1/2/0/9/120982154/final_sorting_guide__1_.pdf' target='_blank'>this guide.</a>";
+ 
+        echo "</div>";       
     }
 }
