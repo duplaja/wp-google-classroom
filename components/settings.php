@@ -459,7 +459,7 @@ if (!function_exists('gclassroom_wp_integration_display_class_spinner')) {
     function gclassroom_wp_integration_display_class_spinner() {
 
         echo "<h1>Student Spinner</h1>
-        <div style='float:left;margin-right:20px;margin-left:20px;margin-top:10px'>";
+        <div style='float:left;margin-right:20px;margin-left:20px'>";
         
         echo google_classroom_show_spinner();
         

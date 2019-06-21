@@ -9,7 +9,12 @@ jQuery(document).ready(function() {
     }
 
     if (jQuery('#launchSpinner').length) {
-        jQuery("#launchSpinner").animatedModal();
+        jQuery("#launchSpinner").animatedModal({
+            beforeOpen: function() {
+                jQuery('#wpadminbar').hide();
+            }
+        });
+        
     }
 
 });

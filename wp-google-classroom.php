@@ -96,6 +96,7 @@ function google_classroom_enqueue_scripts($hook) {
 add_action( 'admin_enqueue_scripts', 'google_classroom_enqueue_scripts' );
 
 
+
 function google_classroom_dashboard_add_widgets() {
 	wp_add_dashboard_widget( 'google_classroom_dashboard_widget_news', __( 'Google Teacher Tutorials', 'dw' ), 'google_classroom_dashboard_widget_news_handler' );
 	wp_add_dashboard_widget( 'google_classroom_dashboard_widget_tips', __( 'Classroom Plugin Setup Tips', 'dw' ), 'google_classroom_dashboard_widget_tips_handler' );

@@ -5,7 +5,11 @@
 jQuery(document).ready(function() {
 
     if (jQuery('#animatedCards').length) {
-        jQuery("#animatedCards").animatedModal();
+        jQuery("#animatedCards").animatedModal({
+            beforeOpen: function() {
+                jQuery('#wpadminbar').hide();
+            }
+        });
     }
 });
 

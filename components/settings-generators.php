@@ -173,7 +173,7 @@ if(!function_exists('google_classroom_show_spinner')) {
             
             
             $output .= '
-            <div id="animatedModal" style="margin-top:10px">
+            <div id="animatedModal">
             <div class="modal-content">';
             
             $output .='
@@ -293,7 +293,7 @@ if(!function_exists('google_classroom_card_flip')) {
             
             
             $output .= '
-            <div id="animatedCardsModal" style="margin-top:10px">
+            <div id="animatedCardsModal">
             <div class="modal-content" style="padding-top:25px;padding-left:15px">';
             $i=1;
             
