@@ -5,6 +5,9 @@ See the project page for videos, details, and demos:
 https://mathwithmrdulaney.com/google-classroom-plugin
 
 ## Changelog
+== 1.2.1
+* Hide Admin Bar on Card / Spinner Popup
+
 == 1.2 ==
 * Small Fixes
 * Added in Class Card Flips
