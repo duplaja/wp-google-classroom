@@ -2,6 +2,10 @@
 * Admin side CSS styles for Google Classroom Plugin
 *************************************/
 
+/******************************
+* Forms CSS
+******************************/
+
 label.error {
     color:red;
 }
@@ -9,11 +13,16 @@ label.error {
 #assignmentform, #bulkaddform {
     width:90%;
 }
-#assignmentform input, #assignmentform label, #bulkaddform label, #spinnerform label, #spinnerform input, #cardform input, #cardform label {
+#assignmentform input, #assignmentform label, 
+#bulkaddform label, #spinnerform label, #spinnerform input, 
+#cardform input, #cardform label,
+#checkoutform input, #checkoutform label,
+#create_sheet input, #create_sheet label {
     display:block;
 }
 #assignmentform label, #assignmentform legend, #bulkaddform label, 
-#spinnerform label, #spinnerform legend, #cardform label, #cardform legend {
+#spinnerform label, #spinnerform legend, #cardform label, #cardform legend,
+#checkoutform label, #create_sheet label {
     font-weight:700;
     margin-bottom:5px;
 }
@@ -27,7 +36,7 @@ label.error {
     display:inline-block;
     font-weight:500
 }
-#assignmentform div, #bulkaddform div, #spinnerform div, #cardform div {
+#assignmentform div, #bulkaddform div, #spinnerform div, #cardform div, #checkoutform div, #create_sheet div{
     margin-bottom:20px;
 }
 #assignmentform select, #assignmentform textarea, #assignmentform input[type='text'], #assignmentform input[type='number'] {
@@ -63,6 +72,10 @@ div.button-link:hover, div.button-link:active {
     cursor: pointer!important;
 }
 
+/*****************************
+* Sorting Sticks
+*******************************/
+
 #sorting-sticks-calc table,
 #sorting-sticks-calc th,
 #sorting-sticks-calc td { 
@@ -73,7 +86,11 @@ div.button-link:hover, div.button-link:active {
 #sorting-sticks-calc td { 
     padding: 8px; 
     background-color:none; 
-} 
+}
+
+/******************************
+* Card Flipping
+******************************/
 
 .playing-card {
     width: 100px;
@@ -100,3 +117,64 @@ div.button-link:hover, div.button-link:active {
     height:auto;
     width:100px;
   }
+
+  /************************
+  * Check in / out sheet
+  *************************/
+table.sign-in-and-out-table td { 
+    padding: 6px; 
+    background-color:none; 
+}
+table.sign-in-and-out-table,
+table.sign-in-and-out-table th,
+table.sign-in-and-out-table td { 
+    border: 1px solid navy; 
+    text-align:center; 
+}
+
+div.onoffswitch {
+    position: relative; width: 65px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+div.onoffswitch input[type=checkbox].onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 9px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 24px; padding: 0; line-height: 24px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "In";
+    padding-left: 2px;
+    padding-right:15px;
+    background-color: #2BBF17; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Out";
+    padding-right: 10px;
+    background-color: rgb(248, 74, 74); color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 20px; margin: 4.5px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 33px;
+    border: 2px solid #999999; border-radius: 9px;
+    transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}

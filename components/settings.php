@@ -96,6 +96,8 @@ if ( ! function_exists( 'gclassroom_wp_integration_menu' ) ) {
             add_submenu_page('google-classroom', 'Bulk Add Students', 'Bulk Add Students', 'manage_options', 'google-classroom-bulk-add', 'gclassroom_wp_integration_display_bulk_add');
             add_submenu_page('google-classroom', 'Spinner', 'Class Spinner', 'manage_options', 'google-classroom-class-spinner', 'gclassroom_wp_integration_display_class_spinner');       
             add_submenu_page('google-classroom', 'Card Flip', 'Card Flip', 'manage_options', 'google-classroom-class-card', 'gclassroom_wp_integration_display_class_card');       
+            add_submenu_page('google-classroom', 'Sign In and Out', 'Sign In and Out', 'manage_options', 'google-classroom-class-sign', 'gclassroom_wp_integration_display_sign_in_out');       
+
         }
 
         //Doesn't actually require Google Auth for this one
@@ -142,6 +144,7 @@ if ( ! function_exists( 'gclassroom_wp_integration_display_settings' ) ) {
                 $client->addScope("https://www.googleapis.com/auth/classroom.coursework.students");
                 $client->addScope("https://www.googleapis.com/auth/classroom.announcements");
                 $client->addScope('https://www.googleapis.com/auth/classroom.profile.emails');
+                $client->addScope('https://www.googleapis.com/auth/spreadsheets');
                 $client->setAccessType('offline');
                 $client->setApprovalPrompt('force');
                 $authUrl = $client->createAuthUrl();
@@ -530,4 +533,56 @@ if (!function_exists('gclassroom_wp_integration_display_sorting_sticks_calc')) {
  
         echo "</div>";       
     }
+}
+
+if(!function_exists('gclassroom_wp_integration_display_sign_in_out')) {
+
+    function gclassroom_wp_integration_display_sign_in_out() {
+
+
+        echo "<div id='sign-in-and-out'>
+            <h1>Student Sign In and Out Log</h1>";
+                
+            if(isset($_POST['sheet_title']) && !empty($_POST['sheet_title'])) {
+                $title = $_POST['sheet_title'];
+
+                if($title != 'clear') {
+
+                    $result = google_classroom_create_sheet($title);
+
+                    if ($result == 'failed') {
+                        echo '<p>There was an error creating your sheet. Please try again.</p>';
+                    } else {
+                        delete_option('classroom_signout_sheet_id');
+                        update_option('classroom_signout_sheet_id',$result);
+                    }
+                } else {
+
+                    delete_option('classroom_signout_sheet_id');
+                    unset($_POST['remove_stored']);
+                }
+            }
+
+            if(!empty(get_option( 'classroom_signout_sheet_id')) && !isset($_POST['remove_stored'])) {
+                
+                echo google_classroom_show_signout_form();
+            
+            } else {
+
+                echo "<form id='create_sheet' method='POST' action='{$_SERVER['REQUEST_URI']}' enctype='multipart/form-data'>
+                        <div>
+                        <label for='sheet_title'>Signout Sheet Title: Will Create a Google Sheet With This Name</label>
+                        <input type='text' name='sheet_title' id='sheet_title' required></div>
+                        <input type='submit' value='Create Signout Sheet'>
+                    </form>";
+                    
+                    if(!empty(get_option( 'classroom_signout_sheet_id'))) {
+                        echo "<br><br><br>
+                        <a href='{$_SERVER['REQUEST_URI']}'>Abort and Keep Current Sheet, If You've Set One</a>";
+                    }
+            }
+
+        echo "</div>";
+    }
+
 }

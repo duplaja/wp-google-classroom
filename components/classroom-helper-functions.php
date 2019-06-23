@@ -35,6 +35,8 @@ if (! function_exists('google_classroom_get_client')) {
         $client->addScope("https://www.googleapis.com/auth/classroom.coursework.students");
         $client->addScope("https://www.googleapis.com/auth/classroom.announcements");
         $client->addScope('https://www.googleapis.com/auth/classroom.profile.emails');
+        $client->addScope('https://www.googleapis.com/auth/spreadsheets');
+
         $client->setAccessType('offline');
 
         if(!empty($token)) {
@@ -56,6 +58,216 @@ if (! function_exists('google_classroom_get_client')) {
                     
         }
         return $client;
+    }
+}
+
+if(!function_exists('google_classroom_create_sheet')) {
+
+    /*********************************
+     *  Creates a new Google Sheet, when passed the title.
+     *  Returns the New Sheet's ID if successful, "failed" if not
+     ***********************************/
+
+    function google_classroom_create_sheet($title) {
+        if(!empty(get_option( 'classroom_auth_token'))) {
+            // Get the API client and construct the service object.
+            $newclient = google_classroom_get_client(get_option( 'classroom_auth_token'));
+
+            $service = new Google_Service_Sheets($newclient);
+
+            $spreadsheet = new Google_Service_Sheets_Spreadsheet([
+                'properties' => [
+                    'title' => $title
+                ]
+            ]);
+
+            try{
+                $spreadsheet = $service->spreadsheets->create($spreadsheet, [
+                    'fields' => 'spreadsheetId'
+                ]);
+            }
+            catch(Exception $exception){
+
+                return 'failed';
+            }
+            
+            if(isset($spreadsheet->spreadsheetId)) {
+
+                $sheet_id = $spreadsheet->spreadsheetId;
+
+                $returned = google_classroom_initialize_attendence_sheet($sheet_id);
+                if ($returned != 'failed') {
+                    return $spreadsheet->spreadsheetId;
+                } else {
+                    return 'failed';
+                }
+            }
+            
+        }
+
+        return 'failed';
+    }
+}
+
+if(!function_exists('google_classroom_update_sheet')) {
+
+    /*********************************
+     *  Creates a new Google Sheet, when passed the title.
+     *  Returns the New Sheet's ID if successful, "failed" if not
+     ***********************************/
+
+    function google_classroom_update_sheet($sheet_id,$data_array = array(),$range='A1:D1') {
+        if(!empty(get_option( 'classroom_auth_token'))) {
+            // Get the API client and construct the service object.
+            $newclient = google_classroom_get_client(get_option( 'classroom_auth_token'));
+
+            $service = new Google_Service_Sheets($newclient);
+
+            $values = [
+                
+                $data_array,                
+            ];
+            $body = new Google_Service_Sheets_ValueRange([
+                'values' => $values
+            ]);
+            $params = [
+                'valueInputOption' => 'USER_ENTERED'
+            ];
+
+            try{
+                $result = $service->spreadsheets_values->append($sheet_id, $range, $body, $params);
+            }
+            catch(Exception $exception){
+                return 'failed';
+            }
+            
+            return 'worked';
+        }
+
+        return 'failed';
+    }
+}
+
+if(!function_exists('google_classroom_update_signout_callback')) {
+
+        //actions for logged in users only
+    add_action( 'wp_ajax_send_signout_update', 'google_classroom_update_signout_callback' );
+    
+    function google_classroom_update_signout_callback() {
+
+        if ( current_user_can( 'manage_options' ) ) {
+
+            $date = $_POST['date'];
+            $stuname = $_POST['stuname'];
+            $time = $_POST['time'];
+            $destination = $_POST['destination'];
+
+            $data_array=array($date,$stuname,$time,$destination);
+
+            if(!empty($date) && !empty($stuname) && !empty($time) && !empty($destination) && !empty(get_option( 'classroom_signout_sheet_id'))) {
+                $sheet_id = get_option( 'classroom_signout_sheet_id');
+                
+                google_classroom_update_sheet($sheet_id,$data_array,'A1:D1');
+
+                echo 'It worked!';
+                die();
+
+            } else {
+                echo 'failed';
+                die();
+            }
+        }
+
+    }
+}
+
+if(!function_exists('google_classroom_initialize_attendence_sheet')) {
+
+    /*********************************
+     *  Prepares the attendence sheet to start logging. Run right after creation
+     *  Creates headers, formats, and locks them
+     ***********************************/
+
+    function google_classroom_initialize_attendence_sheet($sheet_id) {
+        if(!empty(get_option( 'classroom_auth_token'))) {
+            // Get the API client and construct the service object.
+            $newclient = google_classroom_get_client(get_option( 'classroom_auth_token'));
+
+            $service = new Google_Service_Sheets($newclient);
+
+            $range = 'A1:D1';
+
+            $values = [
+                [
+                    'Date',
+                    'Name',
+                    'Time',
+                    'Destination'
+                ],
+                
+            ];
+            $body = new Google_Service_Sheets_ValueRange([
+                'values' => $values
+            ]);
+            $params = [
+                'valueInputOption' => 'USER_ENTERED'
+            ];
+
+            try{
+                $result = $service->spreadsheets_values->update($sheet_id, $range, $body, $params);
+            }
+            catch(Exception $exception){
+                return 'failed';
+            }
+
+            $formatRowColrequests = [
+                new Google_Service_Sheets_Request([
+                  "repeatCell" => [
+                    "range" => [
+                      "sheetId" => $setSheetId, //set your sheet ID
+                      "startRowIndex" => 0,
+                      "endRowIndex" => 1,
+                      "startColumnIndex" => 0,
+                      "endColumnIndex" => 100
+                    ],
+                    "cell" => [
+                      "userEnteredFormat" => [
+                        "horizontalAlignment" => "CENTER",
+                        "textFormat" => [
+                          "fontSize" => 9,
+                          "bold" => true
+                        ]
+                      ]
+                    ],
+                    "fields" => "userEnteredFormat(textFormat,horizontalAlignment)"
+                  ]
+                ]),
+                new Google_Service_Sheets_Request([
+                    'updateSheetProperties' => [
+                        'properties' => [
+                            'sheetId' => $setSheetId,
+                            'gridProperties' => [
+                                'frozenRowCount' => 1
+                            ]
+                        ],
+                        "fields"=> "gridProperties.frozenRowCount"
+                    ]
+                ])
+            ];
+            $batchUpdateCellFormatRequest = new Google_Service_Sheets_BatchUpdateSpreadsheetRequest([
+                'requests' => $formatRowColrequests
+            ]);
+
+            try {
+                $service->spreadsheets->batchUpdate($sheet_id, $batchUpdateCellFormatRequest);
+            }
+            catch(Exception $exception){
+                    return 'failed';
+            }
+                return 'Initialized';
+        }
+
+        return 'failed';
     }
 }
 

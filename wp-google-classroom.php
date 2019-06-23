@@ -87,8 +87,15 @@ function google_classroom_enqueue_scripts($hook) {
         wp_enqueue_style( 'admin-css', plugins_url( 'css/admin.css', __FILE__ ),array(), '1.2');
         wp_enqueue_script('sorting-sticks',plugins_url('js/sorting-sticks.js', __FILE__),array('jquery'),'1.0');
 
-    } else {
+    } elseif ('google-classroom_page_google-classroom-class-sign' == $hook) {
 
+        wp_enqueue_style( 'admin-css', plugins_url( 'css/admin.css', __FILE__ ),array(), '1.2');
+        wp_enqueue_style( 'animate-css', plugins_url( 'css/animate.min.css', __FILE__ ),array(), '1.0');
+
+        wp_enqueue_script( 'animated-modal', plugins_url( 'js/animatedModal.min.js', __FILE__ ),array('jquery'), '1.0');
+        wp_enqueue_script('signout-js',plugins_url('js/signout.js', __FILE__),array('jquery','animated-modal'),'1.0');
+
+    } else {
         return;
     }
 
