@@ -572,7 +572,7 @@ if(!function_exists('gclassroom_wp_integration_display_sign_in_out')) {
                 echo "<form id='create_sheet' method='POST' action='{$_SERVER['REQUEST_URI']}' enctype='multipart/form-data'>
                         <div>
                         <label for='sheet_title'>Signout Sheet Title: Will Create a Google Sheet With This Name</label>
-                        <input type='text' name='sheet_title' id='sheet_title' required></div>
+                        <input type='text' name='sheet_title' id='sheet_title' required autocomplete='off'></div>
                         <input type='submit' value='Create Signout Sheet'>
                     </form>";
                     
