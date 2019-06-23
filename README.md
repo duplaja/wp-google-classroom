@@ -5,7 +5,12 @@ See the project page for videos, details, and demos:
 https://mathwithmrdulaney.com/google-classroom-plugin
 
 ## Changelog
-== 1.2.1
+== 2.0 ==
+* Major (breaking) Update, added Sheets API
+* You will need to re-authenticate, adding Sheets API and permissions
+* Added Sign In / Sign Out Feature! Logs to Google Sheet
+
+== 1.2.1 ==
 * Hide Admin Bar on Card / Spinner Popup
 
 == 1.2 ==
