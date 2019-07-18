@@ -3,7 +3,7 @@
 Plugin Name: WP Google Classroom
 Plugin URI: https://mathwithmrdulaney.com/google-classroom-plugin
 Description: WP Integration with Google Classroom
-Version: 2.0.o
+Version: 2.1
 Author: Dan Dulaney
 Author URI: https://dandulaney.com
 GitHub Plugin URI: https://github.com/duplaja/wp-google-classroom

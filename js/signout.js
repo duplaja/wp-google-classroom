@@ -46,6 +46,12 @@ function checkinout(checkboxElem) {
 
         document.getElementById(timeoutbox).innerHTML = ampm; 
         sendToCheckoutSpreadsheet(sendDate,stuname,ampm,destination);
+
+        if (typeof print_exit_ticket === 'function') {
+
+            print_exit_ticket(stuname,ampm,sendDate,destination);
+            
+        }
     }
   }
 

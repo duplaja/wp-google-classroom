@@ -23,7 +23,18 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
 	function google_classroom_generate_pdf($input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes') {
 
 
-        $pdf = new Fpdi();
+        $pdf = new Fpdi('P','mm','Letter');
+        $pdf->setMargins(0,0,0,0);
+
+
+        if($show_qr == 'rocket') {
+            // let's get an id for the background template
+            $pdf->setSourceFile(dirname(__FILE__).'/rocket-letter.pdf'); 
+            $backId = $pdf->importPage(1);
+        }
+
+        //$input_file = '/sites/dandulaney.dev/files/wp-content/plugins/wp-google-classroom/components/template.pdf';
+
         $num_pages = $pdf->setSourceFile($input_file); 
 
 
@@ -62,13 +73,30 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
             $height = $specs['height'];
             $width = $specs['width'];
             $pdf->AddPage($height > $width ? 'P' : 'L');
-            $pdf->useTemplate($tplIdx, 0, 0);
 
+            if($show_qr == 'rocket') {
+                $pdf->useTemplate($backId, 0, 0);
+                
+                $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
+                
+
+            } else {
+
+                $pdf->useTemplate($tplIdx, 0, 0);
+
+            }
             $pdf->SetFont('Arial'); 
             $pdf->SetTextColor(0,0,0); 
 
             foreach ($name_print_locations as $location) {
-                $pdf->SetXY($location[0], $location[1]); 
+                $pdf->SetXY($location[0], $location[1]);
+                
+                if($show_qr == 'rocket') {
+
+                    $pdf->SetXY(15, 18);
+
+                }
+                
                 $pdf->Write(0, "{$student_name}"); 
             }
             if (count($name_print_locations) == 1) {
@@ -76,6 +104,11 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
  
                 if($location[0] ==130 && $location[1]==15) {
                     $pdf->SetXY(175, 8);
+                }
+
+                if($show_qr == 'rocket') {
+                    $pdf->SetXY(159, 18); 
+
                 }
  
                 $pdf->Write(0, "{$hour_string}");
@@ -98,8 +131,18 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
                 $height = $specs['height'];
                 $width = $specs['width'];
                 $pdf->AddPage($height > $width ? 'P' : 'L');
-                $pdf->useTemplate($tplIdx, 0, 0);
-    
+               
+                if($show_qr == 'rocket') {
+                    $pdf->useTemplate($backId, 0, 0);
+                
+                    $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
+
+                } else {
+
+                    $pdf->useTemplate($tplIdx, 0, 0);
+
+                }
+
 
             }
             if ($num_pages > 1 && $num_pages % 2 == 1) {
@@ -133,12 +176,20 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
 	 */
 	function google_classroom_generate_multiple_pdf($input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes',$pages_in_each=1) {
 
-        $pdf = new Fpdi();
+        $pdf = new Fpdi('P','mm','Letter');
+        $pdf->setMargins(0,0,0,0);
+
+
+        if($show_qr == 'rocket') {
+            // let's get an id for the background template
+            $pdf->setSourceFile(dirname(__FILE__).'/rocket-letter.pdf'); 
+            $backId = $pdf->importPage(1);
+        }
+
+
         $num_pages = $pdf->setSourceFile($input_file); 
 
-       //$filled_pdfs_folder = dirname(__DIR__, 1).'/filled-pdfs';
-        //$generated_qrs_folder = dirname(__DIR__, 1).'/qr-codes';
-        
+
         $filled_pdfs_folder = wp_get_upload_dir()['basedir'].'/filled-pdfs';
         $generated_qrs_folder = wp_get_upload_dir()['basedir'].'/qr-codes';
 
@@ -178,7 +229,19 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
             $height = $specs['height'];
             $width = $specs['width'];
             $pdf->AddPage($height > $width ? 'P' : 'L');
-            $pdf->useTemplate($tplIdx, 0, 0);
+
+
+            if($show_qr == 'rocket') {
+                $pdf->useTemplate($backId, 0, 0);
+                
+                $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
+                
+
+            } else {
+
+                $pdf->useTemplate($tplIdx, 0, 0);
+
+            }
 
             $pdf->SetFont('Arial'); 
             $pdf->SetTextColor(0,0,0); 
@@ -194,6 +257,10 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
                     $pdf->SetXY(175, 8);
                 }
 
+                if($show_qr == 'rocket') {
+                    $pdf->SetXY(159, 18); 
+
+                }
                 $pdf->Write(0, "{$hour_string}");
             }
 
@@ -223,7 +290,19 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
                 $height = $specs['height'];
                 $width = $specs['width'];
                 $pdf->AddPage($height > $width ? 'P' : 'L');
-                $pdf->useTemplate($tplIdx, 0, 0);
+
+                if($show_qr == 'rocket') {
+                    $pdf->useTemplate($backId, 0, 0);
+                    
+                    $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
+                    
+    
+                } else {
+    
+                    $pdf->useTemplate($tplIdx, 0, 0);
+    
+                }
+    
             }
 
             if ($pages_in_each > 1 && $pages_in_each % 2 == 1) {

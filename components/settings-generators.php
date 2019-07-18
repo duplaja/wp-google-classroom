@@ -71,10 +71,10 @@ if(!function_exists('google_classroom_show_assignment_form')) {
                     </select>
                 </div>
                 <div style='float:left;margin-right:20px;'>
-                    <label for='add_qr'>Add QR Code?</label>
+                    <label for='add_qr'>Special Overlay</label>
                     <select id='add_qr' name='add_qr'>
-                        <option value='yes' selected='selected'>Yes</option>
-                        <option value='no'>No</option>
+                        <option value='yes' selected='selected'>QR Code</option>
+                        <option value='rocket'>Rocketbook Overlay</option>
                     </select>
                 </div>
                 <div style='float:left;display:none' id='hide_pages_per_version'>
@@ -433,6 +433,9 @@ if(!function_exists('google_classroom_show_signout_form')) {
                     <div style='clear:both'>
                     <a href='{$_SERVER['REQUEST_URI']}' class='button-link-special' style='float:left;'>Close / Choose Class</a>";
 
+                    if (shortcode_exists('gclassroom_thermal_data')) {
+                        echo do_shortcode('[gclassroom_thermal_data]');
+                    }
                     
                     $student_table.='</div></div>';
 
