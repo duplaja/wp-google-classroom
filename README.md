@@ -5,6 +5,10 @@ See the project page for videos, details, and demos:
 https://mathwithmrdulaney.com/google-classroom-plugin
 
 ## Changelog
+== 2.1.0 ==
+* First push of Rocketbook option for generated Worksheets
+* Feature is still experimental (behaves oddly with landscape mode for now)
+
 == 2.0 ==
 * Major (breaking) Update, added Sheets API
 * You will need to re-authenticate, adding Sheets API and permissions
