@@ -20,7 +20,7 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
      * 
 	 * @return
 	 */
-	function google_classroom_generate_pdf($input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes') {
+	function google_classroom_generate_pdf($chosen_name,$input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes',$marked_rb_circle = '') {
 
 
         $pdf = new Fpdi('P','mm','Letter');
@@ -94,10 +94,46 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
                 if($show_qr == 'rocket') {
 
                     $pdf->SetXY(15, 18);
+                    $pdf->Write(0, "# # {$chosen_name} - {$hour_string} - {$student_name} # #");
 
-                }
+                    if(!empty($marked_rb_circle)) {
+
+                        switch($marked_rb_circle) {    
+
+                            case 'rocket':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 27, 246, 9, 9, 'png'); //Rocket
+                                break;
+
+                            case 'diamond':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 51, 246, 9, 9, 'png'); //Diamond
+                                break;
+
+                            case 'apple':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 74, 246, 9, 9, 'png'); //Apple
+                                break;
+
+                            case 'bell':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 97, 246, 9, 9, 'png'); //Bell
+                                break;
+
+                            case 'clover':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 121, 246, 9, 9, 'png'); //Clover
+                                break;
+
+                            case 'star':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 144, 246, 9, 9, 'png'); //Star
+                                break;
+                            
+                            case 'horseshoe':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 168, 246, 9, 9, 'png'); //Horseshoe
+                                break;
+                        }
+                    }
+                } else {
                 
-                $pdf->Write(0, "{$student_name}"); 
+                    $pdf->Write(0, "{$student_name}");
+                
+                }
             }
             if (count($name_print_locations) == 1) {
                 $pdf->SetXY(159, 8); 
@@ -106,12 +142,13 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
                     $pdf->SetXY(175, 8);
                 }
 
-                if($show_qr == 'rocket') {
-                    $pdf->SetXY(159, 18); 
+                if($show_qr != 'rocket') {
+                
+                    $pdf->Write(0, "{$hour_string}");
 
                 }
  
-                $pdf->Write(0, "{$hour_string}");
+                
             }
 
             if($show_qr == 'yes') {
@@ -136,6 +173,41 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
                     $pdf->useTemplate($backId, 0, 0);
                 
                     $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
+
+                    if(!empty($marked_rb_circle)) {
+
+                        switch($marked_rb_circle) {    
+
+                            case 'rocket':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 27, 246, 9, 9, 'png'); //Rocket
+                                break;
+
+                            case 'diamond':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 51, 246, 9, 9, 'png'); //Diamond
+                                break;
+
+                            case 'apple':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 74, 246, 9, 9, 'png'); //Apple
+                                break;
+
+                            case 'bell':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 97, 246, 9, 9, 'png'); //Bell
+                                break;
+
+                            case 'clover':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 121, 246, 9, 9, 'png'); //Clover
+                                break;
+
+                            case 'star':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 144, 246, 9, 9, 'png'); //Star
+                                break;
+                            
+                            case 'horseshoe':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 168, 246, 9, 9, 'png'); //Horseshoe
+                                break;
+                        }
+                    }
+
 
                 } else {
 
@@ -174,7 +246,7 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
      * 
 	 * @return
 	 */
-	function google_classroom_generate_multiple_pdf($input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes',$pages_in_each=1) {
+	function google_classroom_generate_multiple_pdf($chosen_name,$input_file,$input_file_url,$student_names,$name_location,$hour_string,$output_name,$show_qr = 'yes', $marked_rb_circle = '', $pages_in_each=1) {
 
         $pdf = new Fpdi('P','mm','Letter');
         $pdf->setMargins(0,0,0,0);
@@ -247,9 +319,56 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
             $pdf->SetTextColor(0,0,0); 
 
             foreach ($name_print_locations as $location) {
+                
                 $pdf->SetXY($location[0], $location[1]); 
-                $pdf->Write(0, "{$student_name}"); 
+                
+                if($show_qr == 'rocket') {
+
+                    $pdf->SetXY(15, 18);
+                    $pdf->Write(0, "# # {$chosen_name} - {$hour_string} - {$student_name} # #");
+
+                    if(!empty($marked_rb_circle)) {
+
+                        switch($marked_rb_circle) {    
+
+                            case 'rocket':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 27, 246, 9, 9, 'png'); //Rocket
+                                break;
+
+                            case 'diamond':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 51, 246, 9, 9, 'png'); //Diamond
+                                break;
+
+                            case 'apple':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 74, 246, 9, 9, 'png'); //Apple
+                                break;
+
+                            case 'bell':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 97, 246, 9, 9, 'png'); //Bell
+                                break;
+
+                            case 'clover':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 121, 246, 9, 9, 'png'); //Clover
+                                break;
+
+                            case 'star':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 144, 246, 9, 9, 'png'); //Star
+                                break;
+                            
+                            case 'horseshoe':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 168, 246, 9, 9, 'png'); //Horseshoe
+                                break;
+                        }
+                    }
+
+
+                } else {
+                
+                    $pdf->Write(0, "{$student_name}");
+                
+                }
             }
+
             if (count($name_print_locations) == 1) {
                 $pdf->SetXY(159, 8);
 
@@ -257,11 +376,9 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
                     $pdf->SetXY(175, 8);
                 }
 
-                if($show_qr == 'rocket') {
-                    $pdf->SetXY(159, 18); 
-
+                if($show_qr != 'rocket') {
+                    $pdf->Write(0, "{$hour_string}");
                 }
-                $pdf->Write(0, "{$hour_string}");
             }
 
             if($show_qr == 'yes') {
@@ -295,7 +412,41 @@ if ( ! function_exists( 'google_classroom_generate_multiple_pdf' ) ) {
                     $pdf->useTemplate($backId, 0, 0);
                     
                     $pdf->useTemplate($tplIdx, 13, 16, 190, 228);
-                    
+
+                    if(!empty($marked_rb_circle)) {
+
+                        switch($marked_rb_circle) {    
+
+                            case 'rocket':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 27, 246, 9, 9, 'png'); //Rocket
+                                break;
+
+                            case 'diamond':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 51, 246, 9, 9, 'png'); //Diamond
+                                break;
+
+                            case 'apple':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 74, 246, 9, 9, 'png'); //Apple
+                                break;
+
+                            case 'bell':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 97, 246, 9, 9, 'png'); //Bell
+                                break;
+
+                            case 'clover':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 121, 246, 9, 9, 'png'); //Clover
+                                break;
+
+                            case 'star':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 144, 246, 9, 9, 'png'); //Star
+                                break;
+                            
+                            case 'horseshoe':
+                                $pdf->Image(dirname(__FILE__).'/black-circle.png', 168, 246, 9, 9, 'png'); //Horseshoe
+                                break;
+                        }
+                    }
+
     
                 } else {
     

@@ -37,6 +37,17 @@ function showHideNumPages(value) {
         jQuery('#hide_pages_per_version').show();
     }
 }
+
+function showHideNameRB(value) {
+
+    if (value == 'rocket') {
+        jQuery('#div_name_placement').hide();
+        jQuery('#div_rb_circle').show();
+    } else {
+        jQuery('#div_name_placement').show();
+        jQuery('#div_rb_circle').hide();
+    }
+}
     
 function showHideClassroom(value) {
 

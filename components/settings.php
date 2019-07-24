@@ -295,6 +295,8 @@ if(! function_exists('gclassroom_wp_integration_display_assignment')) {
 
                     //Builds output name from Assignment Title
 
+
+                    $chosen_name = $_POST['assignment_title'];
                     $output_name = preg_replace("/[^A-Za-z0-9 ]/", '', $_POST['assignment_title']);
                     $output_name = str_replace(' ','_',strtolower($output_name));
 
@@ -320,9 +322,16 @@ if(! function_exists('gclassroom_wp_integration_display_assignment')) {
                         }
                     }
 
+                    $marked_rb_circle = $_POST['marked_rb_circle'];
+                    //$marked_rb_circle = 'horseshoe';
 
                     $qr_code_needed = $_POST['add_qr'];
                     $name_location = $_POST['name_placement'];
+
+                    if($qr_code_needed == 'rocket') {
+                        $name_locaiton = '10x8';
+                    }
+
                     $duedate = $_POST['due_date'];
                     $duetime = $_POST['due_time'];
                     if(empty($duetime)) {
@@ -384,9 +393,9 @@ if(! function_exists('gclassroom_wp_integration_display_assignment')) {
                         array_unshift($student_names,'Teacher Copy');
 
                         if($version == 'single') {
-                            $returnedurls["$class_id"] = google_classroom_generate_pdf($target_file_path,$target_file_url,$student_names,$name_location,$hour_string,$output_name_temp,$qr_code_needed);
+                            $returnedurls["$class_id"] = google_classroom_generate_pdf($chosen_name,$target_file_path,$target_file_url,$student_names,$name_location,$hour_string,$output_name_temp,$qr_code_needed,$marked_rb_circle);
                         } elseif ($version == 'multiple') {
-                            $returnedurls["$class_id"] = google_classroom_generate_multiple_pdf($target_file_path,$modded_target_url,$student_names,$name_location,$hour_string,$output_name_temp,$qr_code_needed,$pages_in_each);
+                            $returnedurls["$class_id"] = google_classroom_generate_multiple_pdf($chosen_name,$target_file_path,$modded_target_url,$student_names,$name_location,$hour_string,$output_name_temp,$qr_code_needed,$marked_rb_circle,$pages_in_each);
                         }
                     }
 

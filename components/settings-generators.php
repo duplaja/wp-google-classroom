@@ -44,15 +44,16 @@ if(!function_exists('google_classroom_show_assignment_form')) {
                     <label for='assignment_title'>Assignment Title *</label>
                     <input name='assignment_title' id='assignment_title' type='text' placeholder='Assignment Title' minlength='2' autocomplete='off' required>
                 </div>
-                <div style='float:left;margin-right:20px;'>
-                    <label for='name_placement'>Name Location</label>
-                    <select name='name_placement' id='name_placement'>
-                        <option value='10x8' selected>Top Left Corner</option>
-                        <option value='130x15'>Infinite Alg</option>
-                        <option value='35x18'>WS / Note (Gina Wilson)</option>
 
+                <div style='float:left;margin-right:20px;'>
+                    <label for='add_qr'>Special Overlay</label>
+                    <select id='add_qr' name='add_qr' onChange='showHideNameRB(this.options[this.selectedIndex].value)'>
+                        <option value='yes' selected='selected'>QR Code</option>
+                        <option value='rocket'>Rocketbook Overlay</option>
+                        <option value='no'>None</option>
                     </select>
                 </div>
+
                 <div style='float:left;'>
                     <label for='versioning'>Versioning</label>
                     <select id='versioning' name='versioning' onChange='showHideNumPages(this.options[this.selectedIndex].value)'>
@@ -63,6 +64,31 @@ if(!function_exists('google_classroom_show_assignment_form')) {
             </section>
             <br style='clear:both;' />
             <section>
+
+                <div style='float:left;margin-right:20px;' id='div_name_placement'>
+                    <label for='name_placement'>Name Location</label>
+                    <select name='name_placement' id='name_placement'>
+                        <option value='10x8' selected>Top Left Corner</option>
+                        <option value='130x15'>Infinite Alg</option>
+                        <option value='35x18'>WS / Note (Gina Wilson)</option>
+
+                    </select>
+                </div>
+
+                <div style='float:left;margin-right:20px;display:none' id='div_rb_circle'>
+                    <label for='marked_rb_circle'>Pre-Mark Rocketbook Circle</label>
+                    <select name='marked_rb_circle' id='marked_rb_circle'>
+                        <option value='' selected>None</option>
+                        <option value='rocket'>Rocket</option>
+                        <option value='diamond'>Diamond</option>
+                        <option value='apple'>Apple</option>
+                        <option value='bell'>Bell</option>
+                        <option value='clover'>Clover</option>
+                        <option value='star'>Star</option>
+                        <option value='horseshoe'>Horseshoe</option>
+                    </select>
+                </div>
+
                 <div style='float:left;margin-right:20px;'>
                     <label for='send_to_classroom'>Send to Classroom?</label>
                     <select id='send_to_classroom' name='send_to_classroom' onChange='showHideClassroom(this.options[this.selectedIndex].value)'>
@@ -70,13 +96,7 @@ if(!function_exists('google_classroom_show_assignment_form')) {
                         <option value='no'>No</option>
                     </select>
                 </div>
-                <div style='float:left;margin-right:20px;'>
-                    <label for='add_qr'>Special Overlay</label>
-                    <select id='add_qr' name='add_qr'>
-                        <option value='yes' selected='selected'>QR Code</option>
-                        <option value='rocket'>Rocketbook Overlay</option>
-                    </select>
-                </div>
+ 
                 <div style='float:left;display:none' id='hide_pages_per_version'>
                     <label for='pages_per_version'># pages / version *</label>
                     <input id='pages_per_version' name='pages_per_version' type='number' min='1' value='1' required>

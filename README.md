@@ -5,6 +5,12 @@ See the project page for videos, details, and demos:
 https://mathwithmrdulaney.com/google-classroom-plugin
 
 ## Changelog
+== 2.3.0 ==
+* Finishing up final touches on Rocketbook
+* Added support for Smart Titles (Rocketbook)
+* Added support for pre-marking a circle (Rocketbook)
+* Landscape mode currently not supported for Rocketbook
+
 == 2.1.0 ==
 * First push of Rocketbook option for generated Worksheets
 * Feature is still experimental (behaves oddly with landscape mode for now)
