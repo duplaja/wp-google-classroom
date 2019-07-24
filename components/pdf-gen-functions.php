@@ -93,7 +93,8 @@ if ( ! function_exists( 'google_classroom_generate_pdf' ) ) {
                 
                 if($show_qr == 'rocket') {
 
-                    $pdf->SetXY(15, 18);
+                    $pdf->SetFontSize(14);
+                    $pdf->SetXY(15, 20);
                     $pdf->Write(0, "# # {$chosen_name} - {$hour_string} - {$student_name} # #");
 
                     if(!empty($marked_rb_circle)) {
