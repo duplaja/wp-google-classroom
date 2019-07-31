@@ -3,7 +3,7 @@
 Plugin Name: WP Google Classroom
 Plugin URI: https://mathwithmrdulaney.com/google-classroom-plugin
 Description: WP Integration with Google Classroom
-Version: 2.3
+Version: 2.4
 Author: Dan Dulaney
 Author URI: https://dandulaney.com
 GitHub Plugin URI: https://github.com/duplaja/wp-google-classroom
@@ -32,6 +32,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/duplaja/wp-google-classroom/',
+	__FILE__,
+	'wp-google-classroom'
+);
+
+$updateChecker->setBranch('master');
 
 use setasign\Fpdi\Fpdi;
 require_once(dirname( __FILE__ ).'/vendor/autoload.php');
