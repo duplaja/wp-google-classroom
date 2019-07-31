@@ -5,6 +5,9 @@ See the project page for videos, details, and demos:
 https://mathwithmrdulaney.com/google-classroom-plugin
 
 ## Changelog
+== 2.4.0 ==
+* Implimented automatic update library. No more manual file copy updates!
+
 == 2.3.0 ==
 * Finishing up final touches on Rocketbook
 * Added support for Smart Titles (Rocketbook)
