@@ -40,7 +40,7 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'wp-google-classroom'
 );
 
-$updateChecker->setBranch('master');
+$myUpdateChecker->setBranch('master');
 
 use setasign\Fpdi\Fpdi;
 require_once(dirname( __FILE__ ).'/vendor/autoload.php');
